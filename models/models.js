@@ -32,7 +32,7 @@ exports.Quiz = Quiz; //Exportar definición de la tabla Quiz
 // Crear e inicializar la tabla de preguntas en DB
 sequelize.sync().then(function() {
     Quiz.count().then(function(count){
-        if (count == 0) {
+        if (count === 0) {
             Quiz.create({ pregunta: 'Capital de Italia',
                           respuesta: 'Roma'
                         });
