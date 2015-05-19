@@ -34,3 +34,19 @@ exports.answer = function(req, res) {
         }
         res.render('quizes/answer', {quiz: req.quiz, respuesta: resultado});
 };
+
+exports.search = function(req, res, next) {
+
+    var busq = req.query.search;
+    if(busq != null){
+        busq = '%'+busq.replace(/\s/g,"%")+'%';
+    }
+
+    models.Quiz.findAll({where: ["pregunta like ?", busq]})
+        .then(function(quizes) {
+            res.render('quizes/search', {quizes : quizes});
+        }).catch(function(error) {
+            next(error);
+        });
+};
+
